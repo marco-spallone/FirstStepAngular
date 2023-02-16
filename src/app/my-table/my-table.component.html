@@ -1,0 +1,8 @@
+<table>
+  <thead>
+    <th *ngFor="let header of tableConfig.headers">{{header.label}}</th>
+  </thead>
+  <tbody>
+    <td *ngFor="let header of tableConfig.headers">{{header.key}}</td>
+  </tbody>
+</table>
