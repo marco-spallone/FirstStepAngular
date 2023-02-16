@@ -3,6 +3,8 @@
     <th *ngFor="let header of tableConfig.headers">{{header.label}}</th>
   </thead>
   <tbody>
-    <td *ngFor="let header of tableConfig.headers">{{header.key}}</td>
+  <tr *ngFor="let d of data">
+    <td *ngFor="let n of tableConfig.headers">{{d[n.key]}}</td>
+  </tr>
   </tbody>
 </table>

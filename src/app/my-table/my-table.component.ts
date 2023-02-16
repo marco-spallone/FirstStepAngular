@@ -8,6 +8,7 @@ import {Component, Input} from '@angular/core';
 
 export class MyTableComponent {
   @Input() tableConfig!: MyTableConfig;
+  @Input() data!:any;
 }
 
 export class MyTableConfig {
