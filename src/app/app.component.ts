@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MyButtonConfig } from "./my-button/my-button-component";
-import {MyHeaders, MyTableConfig} from "./my-table/my-table.component";
+import {MyHeaders, MyOrder, MyTableConfig} from "./my-table/my-table.component";
 
 @Component({
   selector: 'app-root',
@@ -35,5 +35,6 @@ export class AppComponent {
     'cilindrata': 2.2,
     'cavalli': 204
   }]
-  myTable = new MyTableConfig(this.headers);
+  myOrder = new MyOrder("Marca", "Crescente");
+  myTable = new MyTableConfig(this.headers, this.myOrder);
 }
