@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Pipe, PipeTransform} from '@angular/core';
 
 @Component({
   selector: 'my-table',
@@ -10,14 +10,17 @@ export class MyTableComponent implements OnInit{
   @Input() tableConfig!: MyTableConfig;
   @Input() data!:any;
   order: string;
+  filtered:any[]=[];
+
 
   constructor() {
-    this.order="asc";
+    this.order = "asc";
   }
 
   ngOnInit() {
     this.order=this.tableConfig.order.orderType;
     this.sort(this.tableConfig.order.defaultColumn);
+    this.filtered=this.data;
   }
 
   sort(column: string){
@@ -49,23 +52,37 @@ export class MyTableComponent implements OnInit{
       })
     }
   }
+
+  applyFilter(searchFor:string, searchValue:string){
+    this.filtered = this.data.filter((i:any) => i[searchFor.toLowerCase()].toLowerCase().includes(searchValue.toLowerCase()))
+  }
+  clearFilter(searchFor:string, searchValue:string){
+    this.filtered = this.data.filter((i:any) => i[searchFor.toLowerCase()].toLowerCase().includes(searchValue.toLowerCase()))
+  }
 }
 
 export class MyTableConfig{
   headers: MyHeaders[];
   order: MyOrder;
+  search:MySearch;
 
-  constructor(headers: MyHeaders[], order: MyOrder) {
+  constructor(headers: MyHeaders[], order: MyOrder, search: MySearch) {
     this.headers = headers;
     this.order = order;
+    this.search = search;
   }
+}
 
+export class MySearch{
+  columns:string[];
+  constructor(columns: string[]) {
+    this.columns = columns;
+  }
 }
 
 export class MyOrder{
   defaultColumn:string;
   orderType:string;
-
   constructor(defaultColumn: string, orderType: string) {
     this.defaultColumn = defaultColumn;
     this.orderType = orderType;

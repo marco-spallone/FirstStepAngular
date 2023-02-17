@@ -10,12 +10,19 @@
 <div class="container">
   <div class="row">
     <div class="mx-auto mt-5 col-md-6 col-sm-6">
+      <select #searchFor name="searchFor" class="form-select" >
+        <option *ngFor="let option of tableConfig.search.columns">
+          {{option}}
+        </option>
+      </select>
+      <input #searchValue type="text" class="form-control" id="search" name="search" placeholder="Cerca..."
+             (keyup)="applyFilter(searchFor.value, searchValue.value)" (keydown.backspace)="clearFilter(searchFor.value, searchValue.value)"/>
       <table class="table datatable-table table-striped table-bordered">
         <thead>
         <th *ngFor="let header of tableConfig.headers" (click)="sort(header.key)">{{header.label}}</th>
         </thead>
         <tbody>
-        <tr *ngFor="let d of data">
+        <tr *ngFor="let d of filtered">
           <td *ngFor="let n of tableConfig.headers">{{d[n.key]}}</td>
         </tr>
         </tbody>
