@@ -12,7 +12,7 @@
     <div class="mx-auto mt-5 col-md-6 col-sm-6">
       <table class="table datatable-table table-striped table-bordered">
         <thead>
-        <th *ngFor="let header of tableConfig.headers" (click)="sort(header)">{{header.label}}</th>
+        <th *ngFor="let header of tableConfig.headers" (click)="sort(header.key)">{{header.label}}</th>
         </thead>
         <tbody>
         <tr *ngFor="let d of data">

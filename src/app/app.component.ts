@@ -35,6 +35,6 @@ export class AppComponent {
     'cilindrata': 2.2,
     'cavalli': 204
   }]
-  myOrder = new MyOrder("Marca", "Crescente");
+  myOrder = new MyOrder("marca", "asc");
   myTable = new MyTableConfig(this.headers, this.myOrder);
 }

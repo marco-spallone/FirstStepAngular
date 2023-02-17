@@ -9,26 +9,25 @@ import {Component, Input, OnInit} from '@angular/core';
 export class MyTableComponent implements OnInit{
   @Input() tableConfig!: MyTableConfig;
   @Input() data!:any;
-  startHeader:MyHeaders;
-  order:string;
+  order: string;
 
   constructor() {
     this.order="asc";
-    this.startHeader = new MyHeaders("Marca", "marca");
   }
 
   ngOnInit() {
-    this.sort(this.startHeader);
+    this.order=this.tableConfig.order.orderType;
+    this.sort(this.tableConfig.order.defaultColumn);
   }
 
-  sort(header: MyHeaders){
+  sort(column: string){
     if(this.order==="asc"){
       this.order="desc";
       this.data.sort((a:any, b:any) => {
-        if(a[header.key]>b[header.key]) {
+        if(a[column]>b[column]) {
           return 1;
         }
-        if(a[header.key]<b[header.key]) {
+        if(a[column]<b[column]) {
           return -1;
         }
         else{
@@ -38,10 +37,10 @@ export class MyTableComponent implements OnInit{
     } else {
       this.order="asc";
       this.data.sort((a:any, b:any) => {
-        if(a[header.key]>b[header.key]) {
+        if(a[column]>b[column]) {
           return -1;
         }
-        if(a[header.key]<b[header.key]) {
+        if(a[column]<b[column]) {
           return 1;
         }
         else{
@@ -50,7 +49,6 @@ export class MyTableComponent implements OnInit{
       })
     }
   }
-
 }
 
 export class MyTableConfig{
