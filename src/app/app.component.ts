@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MyButtonComponent } from "./my-button/my-button-component";
 import { MyButtonConfig } from "./my-button/my-button-component";
 import {MyHeaders, MyTableConfig} from "./my-table/my-table.component";
 
