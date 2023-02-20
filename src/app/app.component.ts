@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MyButtonConfig } from "./my-button/my-button-component";
-import {MyHeaders, MyOrder, MySearch, MyTableConfig} from "./my-table/my-table.component";
+import {MyHeaders, MyOrder, MyPagination, MySearch, MyTableConfig} from "./my-table/my-table.component";
 
 @Component({
   selector: 'app-root',
@@ -34,8 +34,63 @@ export class AppComponent {
     'anno': 2016,
     'cilindrata': 2.2,
     'cavalli': 204
+  }, {
+    'marca': 'Fiat',
+    'modello': 'Panda',
+    'anno': 1990,
+    'cilindrata': 1.0,
+    'cavalli': 60
+  }, {
+    'marca': 'Ford',
+    'modello': 'Fiesta',
+    'anno': 2011,
+    'cilindrata': 1.2,
+    'cavalli': 75
+  }, {
+    'marca': 'Renault',
+    'modello': 'Clio',
+    'anno': 2014,
+    'cilindrata': 1.4,
+    'cavalli': 75
+  }, {
+    'marca': 'Audi',
+    'modello': 'A3',
+    'anno': 2017,
+    'cilindrata': 1.6,
+    'cavalli': 115
+  }, {
+    'marca': 'Chrysler',
+    'modello': 'Voyager',
+    'anno': 2001,
+    'cilindrata': 1.9,
+    'cavalli': 170
+  }, {
+    'marca': 'BMW',
+    'modello': '116d',
+    'anno': 2019,
+    'cilindrata': 1.6,
+    'cavalli': 116
+  }, {
+    'marca': 'Audi',
+    'modello': 'A4',
+    'anno': 2007,
+    'cilindrata': 2.0,
+    'cavalli': 170
+  }, {
+    'marca': 'Volkswagen',
+    'modello': 'Polo',
+    'anno': 2014,
+    'cilindrata': 1.4,
+    'cavalli': 75
+  }, {
+    'marca': 'Mercedes',
+    'modello': 'A 220d',
+    'anno': 2020,
+    'cilindrata': 1.8,
+    'cavalli': 115
   }]
   mySearch= new MySearch(["marca", "modello", "anno"]);
   myOrder = new MyOrder("anno", "asc");
-  myTable = new MyTableConfig(this.headers, this.myOrder, this.mySearch);
+  myPagination = new MyPagination(10, [10,20,50]);
+  myTable = new MyTableConfig(this.headers, this.myOrder, this.mySearch, this.myPagination);
 }
