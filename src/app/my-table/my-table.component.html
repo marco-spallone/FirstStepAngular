@@ -19,10 +19,10 @@
              (keyup)="applyFilter(searchFor.value, searchValue.value)" (keydown.backspace)="clearFilter(searchFor.value, searchValue.value)"/>
       <table class="table datatable-table table-striped table-bordered">
         <thead>
-        <th *ngFor="let header of tableConfig.headers" (click)="sort(header.key)">{{header.label}}</th>
+          <th *ngFor="let header of tableConfig.headers" (click)="sort(header.key)">{{header.label}}</th>
         </thead>
         <tbody>
-        <tr *ngFor="let d of filtered | pagination:tableConfig.pagination.itemPerPage:page">
+        <tr *ngFor="let d of filtered | sort:order:column | pagination:tableConfig.pagination.itemPerPage:page">
           <td *ngFor="let n of tableConfig.headers">{{d[n.key]}}</td>
         </tr>
         </tbody>

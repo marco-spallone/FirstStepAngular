@@ -5,6 +5,7 @@ import { MyButtonComponent } from './my-button/my-button-component';
 import { MyTableComponent} from './my-table/my-table.component';
 import {FormsModule} from "@angular/forms";
 import { PaginationPipe } from './pipes/pagination.pipe';
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { PaginationPipe } from './pipes/pagination.pipe';
     MyButtonComponent,
     MyTableComponent,
     PaginationPipe,
+    SortPipe,
   ],
   imports: [
     BrowserModule,
