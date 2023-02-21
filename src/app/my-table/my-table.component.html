@@ -9,7 +9,8 @@
 <body>
 <div class="container">
   <div class="row">
-    <div class="mx-auto mt-5 col-md-6 col-sm-6">
+    <div class="mx-auto mt-2 col-md-6 col-sm-6">
+      <my-button [buttonConfig]="addButtonConfig" (click)="getEvent('aggiungi')"></my-button>
       <select #searchFor name="searchFor" class="form-select" >
         <option *ngFor="let option of tableConfig.search.columns">
           {{option}}
@@ -22,8 +23,10 @@
           <th *ngFor="let header of tableConfig.headers" (click)="sort(header.key)">{{header.label}}</th>
         </thead>
         <tbody>
-        <tr *ngFor="let d of filtered | sort:order:column | pagination:tableConfig.pagination.itemPerPage:page">
+        <tr *ngFor="let d of filtered | sort:order:column | pagination:tableConfig.pagination.itemPerPage:page; let rowId = index" [attr.id]="rowId">
           <td *ngFor="let n of tableConfig.headers">{{d[n.key]}}</td>
+          <my-button [buttonConfig]="editButtonConfig" (click)="getEvent('modifica '+rowId)"></my-button>
+          <my-button [buttonConfig]="deleteButtonConfig " (click)="getEvent('elimina '+rowId)"></my-button>
         </tr>
         </tbody>
       </table>

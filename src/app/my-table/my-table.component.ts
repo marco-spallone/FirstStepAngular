@@ -1,4 +1,6 @@
-import {Component, Input, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {addButtonConfig, editButtonConfig} from "../my-button/config/button-config";
+import {deleteButtonConfig} from "../my-button/config/button-config";
 
 @Component({
   selector: 'my-table',
@@ -13,6 +15,11 @@ export class MyTableComponent implements OnInit{
   filtered:any[]=[];
   page:number=1;
   column!:string;
+  @Output() newItemEvent = new EventEmitter<string>();
+  addButtonConfig=addButtonConfig;
+  editButtonConfig=editButtonConfig;
+  deleteButtonConfig=deleteButtonConfig;
+
 
 
   ngOnInit() {
@@ -21,35 +28,17 @@ export class MyTableComponent implements OnInit{
     this.sort(this.tableConfig.order.defaultColumn);
   }
 
+  getEvent(event:string){
+    this.newItemEvent.emit(event);
+  }
+
   sort(column: string){
     this.column=column;
-    /*if(this.order==="asc"){
-      this.order="desc";
-      this.filtered.sort((a:any, b:any) => {
-        if(a[column]>b[column]) {
-          return 1;
-        }
-        if(a[column]<b[column]) {
-          return -1;
-        }
-        else{
-          return 0;
-        }
-      })
+    if(this.order==='desc'){
+      this.order='asc';
     } else {
-      this.order="asc";
-      this.filtered.sort((a:any, b:any) => {
-        if(a[column]>b[column]) {
-          return -1;
-        }
-        if(a[column]<b[column]) {
-          return 1;
-        }
-        else{
-          return 0;
-        }
-      })
-    }*/
+      this.order='desc';
+    }
   }
 
   applyFilter(searchFor:string, searchValue:string){
@@ -71,13 +60,19 @@ export class MyTableConfig{
   order: MyOrder;
   search:MySearch;
   pagination: MyPagination;
+  actions: MyTableActionsEnum[];
 
-  constructor(headers: MyHeaders[], order: MyOrder, search: MySearch, pagination: MyPagination) {
+  constructor(headers: MyHeaders[], order: MyOrder, search: MySearch, pagination: MyPagination, actions:MyTableActionsEnum[]) {
     this.headers = headers;
     this.order = order;
     this.search = search;
     this.pagination=pagination;
+    this.actions=actions;
   }
+}
+
+export enum MyTableActionsEnum{
+  NEW_ROW, EDIT, DELETE
 }
 
 export class MyPagination{

@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SortPipe implements PipeTransform {
 
   transform(data:any[], order:string, column:string): any[] {
-    if(order==="asc"){
+    if(order==='asc'){
       data.sort((a:any, b:any) => {
         if(a[column]>b[column]) {
           return 1;
@@ -31,6 +31,6 @@ export class SortPipe implements PipeTransform {
         }
       })
     }
-    return data;
+    return Object.assign([], data);
   }
 }

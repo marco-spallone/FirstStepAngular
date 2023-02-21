@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { MyButtonConfig } from "./my-button/my-button-component";
 import {carTableConfig} from "./my-table/config/table-config";
-import {testButtonConfig} from "./my-button/config/button-config";
+import {addButtonConfig} from "./my-button/config/button-config";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,6 @@ import {testButtonConfig} from "./my-button/config/button-config";
 })
 export class AppComponent {
   title='FirstStepAngular'
-  myButton = testButtonConfig;
   data:any[] = [{
     marca: 'Volkswagen',
     modello: 'Golf',
@@ -84,5 +82,10 @@ export class AppComponent {
     cilindrata: 1.8,
     cavalli: 115
   }]
+  addButton = addButtonConfig;
   myTable = carTableConfig;
+
+  addItem(event:string) {
+    console.log(event);
+  }
 }
