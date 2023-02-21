@@ -1,1 +1,1 @@
-<my-table [tableConfig]="myTable" [data]="data" (newItemEvent)="addItem($event)"></my-table>
+<my-table [tableConfig]="myTable" [data]="data" (newItemEvent)="addItem($event.data, $event.action)"></my-table>

@@ -11,5 +11,5 @@ export const carTableConfig:MyTableConfig={
   order:new MyOrder('anno', 'desc'),
   search:new MySearch(['marca', 'modello', 'anno']),
   pagination:new MyPagination(10, [3,5,10]),
-  actions:[MyTableActionsEnum.NEW_ROW, MyTableActionsEnum.EDIT, MyTableActionsEnum.DELETE]
+  actions:[MyTableActionsEnum.ZERO, MyTableActionsEnum.ONE, MyTableActionsEnum.TWO]
 }

@@ -15,10 +15,12 @@ export class MyTableComponent implements OnInit{
   filtered:any[]=[];
   page:number=1;
   column!:string;
-  @Output() newItemEvent = new EventEmitter<string>();
+  @Output() newItemEvent = new EventEmitter<any>();
   addButtonConfig=addButtonConfig;
   editButtonConfig=editButtonConfig;
   deleteButtonConfig=deleteButtonConfig;
+  enum=MyTableActionsEnum;
+
 
 
 
@@ -28,8 +30,8 @@ export class MyTableComponent implements OnInit{
     this.sort(this.tableConfig.order.defaultColumn);
   }
 
-  getEvent(event:string){
-    this.newItemEvent.emit(event);
+  getEvent(data:any, action:string){
+    this.newItemEvent.emit({data:data, action:action});
   }
 
   sort(column: string){
@@ -72,7 +74,9 @@ export class MyTableConfig{
 }
 
 export enum MyTableActionsEnum{
-  NEW_ROW, EDIT, DELETE
+  ZERO = 'NEW_ROW',
+  ONE = 'EDIT',
+  TWO = 'DELETE'
 }
 
 export class MyPagination{

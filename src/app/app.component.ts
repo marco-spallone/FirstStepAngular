@@ -85,7 +85,7 @@ export class AppComponent {
   addButton = addButtonConfig;
   myTable = carTableConfig;
 
-  addItem(event:string) {
-    console.log(event);
+  addItem(data:any, action:string) {
+    console.log({data:data, action:action});
   }
 }
