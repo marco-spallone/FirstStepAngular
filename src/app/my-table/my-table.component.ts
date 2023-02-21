@@ -74,9 +74,9 @@ export class MyTableConfig{
 }
 
 export enum MyTableActionsEnum{
-  ZERO = 'NEW_ROW',
-  ONE = 'EDIT',
-  TWO = 'DELETE'
+  NEW_ROW,
+  EDIT,
+  DELETE
 }
 
 export class MyPagination{
