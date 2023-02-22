@@ -20,12 +20,14 @@ export class MyTableComponent implements OnInit {
   editButtonConfig = editButtonConfig;
   deleteButtonConfig = deleteButtonConfig;
   enum = MyTableActionsEnum;
+  maxPages!:number;
 
 
   ngOnInit() {
     this.order = this.tableConfig.order.orderType;
     this.filtered = this.data;
     this.sort(this.tableConfig.order.defaultColumn);
+    this.maxPages=this.data.length/this.tableConfig.pagination.itemPerPage;
   }
 
   getEvent(data: any, action: MyTableActionsEnum) {
@@ -46,11 +48,15 @@ export class MyTableComponent implements OnInit {
   }
 
   next() {
-    this.page++;
+    if(this.page<this.maxPages){
+      this.page++;
+    }
   }
 
   prev() {
-    this.page--;
+    if(this.page>1){
+      this.page--;
+    }
   }
 }
 
