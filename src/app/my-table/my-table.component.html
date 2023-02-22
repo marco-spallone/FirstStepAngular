@@ -1,32 +1,34 @@
 <html>
 <head>
   <title></title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <script src="https://kit.fontawesome.com/6b1574191b.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container">
   <div class="row">
-    <div class="mx-auto mt-2 col-md-6 col-sm-6">
-      <my-button *ngIf="tableConfig.actions.includes(enum.NEW_ROW)" [buttonConfig]="addButtonConfig" (click)="getEvent(null, enum.NEW_ROW.toString())"></my-button>
-      <select #searchFor name="searchFor" class="form-select" >
+    <div class="mx-auto mt-2 col-md-10 col-sm-10">
+      <my-button *ngIf="tableConfig.actions.includes(enum.NEW_ROW)" [buttonConfig]="addButtonConfig"
+                 (click)="getEvent(null, enum.NEW_ROW)"></my-button>
+      <select #searchFor name="searchFor" class="mt-2 form-select">
         <option *ngFor="let option of tableConfig.search.columns">
           {{option}}
         </option>
       </select>
       <input #searchValue type="text" class="form-control" id="search" name="search" placeholder="Cerca..."
-             (keyup)="applyFilter(searchFor.value, searchValue.value)" (keydown.backspace)="clearFilter(searchFor.value, searchValue.value)"/>
-      <table class="table datatable-table table-striped table-bordered">
+             (keyup)="applyFilter(searchFor.value, searchValue.value)"/>
+      <table class="table table-striped table-bordered">
         <thead>
-          <th *ngFor="let header of tableConfig.headers" (click)="sort(header.key)">{{header.label}}</th>
+        <th *ngFor="let header of tableConfig.headers" (click)="sort(header.key)">{{header.label}}</th>
         </thead>
         <tbody>
-        <tr *ngFor="let d of filtered | sort:order:column | pagination:tableConfig.pagination.itemPerPage:page; let rowId = index" [attr.id]="rowId">
+        <tr
+          *ngFor="let d of filtered | sort:order:column | pagination:tableConfig.pagination.itemPerPage:page; let rowId = index"
+          [attr.id]="rowId">
           <td *ngFor="let n of tableConfig.headers">{{d[n.key]}}</td>
-          <my-button *ngIf="tableConfig.actions.includes(enum.EDIT)" [buttonConfig]="editButtonConfig" (click)="getEvent(d,enum.EDIT.toString())"></my-button>
-          <my-button *ngIf="tableConfig.actions.includes(enum.DELETE)" [buttonConfig]="deleteButtonConfig " (click)="getEvent(d, enum.DELETE.toString())"></my-button>
+          <td><my-button *ngIf="tableConfig.actions.includes(enum.EDIT)" [buttonConfig]="editButtonConfig"
+                         (click)="getEvent(d,enum.EDIT)"></my-button></td>
+          <td><my-button *ngIf="tableConfig.actions.includes(enum.DELETE)" [buttonConfig]="deleteButtonConfig "
+                     (click)="getEvent(d, enum.DELETE)"></my-button></td>
         </tr>
         </tbody>
       </table>

@@ -11,9 +11,9 @@ export class MyButtonComponent {
 
 export class MyButtonConfig {
 
-  icon:string;
-  text:string;
-  cssClass:string;
+  icon: string;
+  text: string;
+  cssClass: string;
 
   constructor(icon: string, text: string, cssClass: string) {
     this.icon = icon;

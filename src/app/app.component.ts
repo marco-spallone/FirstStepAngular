@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {carTableConfig} from "./my-table/config/table-config";
 import {addButtonConfig} from "./my-button/config/button-config";
+import {MyTableActionsEnum} from "./my-table/my-table.component";
 
 @Component({
   selector: 'app-root',
@@ -85,7 +86,7 @@ export class AppComponent {
   addButton = addButtonConfig;
   myTable = carTableConfig;
 
-  addItem(data:any, action:string) {
+  addItem(data:any, action:MyTableActionsEnum) {
     console.log({data:data, action:action});
   }
 }
