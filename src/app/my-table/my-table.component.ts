@@ -44,6 +44,7 @@ export class MyTableComponent implements OnInit {
   }
 
   applyFilter(searchFor: string, searchValue: string) {
+    this.page=1;
     this.filtered = this.data.filter((i: any) => i[searchFor.toLowerCase()].toString().toLowerCase().includes(searchValue.toLowerCase()))
   }
 

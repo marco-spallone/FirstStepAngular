@@ -15,7 +15,7 @@
         </option>
       </select>
       <input #searchValue type="text" class="form-control" id="search" name="search" placeholder="Cerca..."
-             (keyup)="applyFilter(searchFor.value, searchValue.value)"/>
+      (keyup)="applyFilter(searchFor.value, searchValue.value)"/>
       <table class="table table-striped table-bordered">
         <thead>
         <th *ngFor="let header of tableConfig.headers" (click)="sort(header.key)">{{header.label}}</th>
