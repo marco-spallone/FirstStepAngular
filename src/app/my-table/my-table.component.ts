@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {addButtonConfig, editButtonConfig} from "../my-button/config/button-config";
-import {deleteButtonConfig} from "../my-button/config/button-config";
+import {deleteButtonConfig, prevButtonConfig, nextButtonConfig} from "../my-button/config/button-config";
+import {MyButtonConfig} from "../my-button/my-button-component";
 
 @Component({
   selector: 'my-table',
@@ -16,11 +17,16 @@ export class MyTableComponent implements OnInit {
   page: number = 1;
   column!: string;
   @Output() newItemEvent = new EventEmitter<any>();
+  standardButtonConfig!:MyButtonConfig;
   addButtonConfig = addButtonConfig;
   editButtonConfig = editButtonConfig;
   deleteButtonConfig = deleteButtonConfig;
+  prevButtonConfig = prevButtonConfig;
+  nextButtonConfig = nextButtonConfig;
   enum = MyTableActionsEnum;
   maxPages!:number;
+  iterableMaxPages!:Array<any>;
+  selectedIndex:number=1;
 
 
   ngOnInit() {
@@ -28,6 +34,27 @@ export class MyTableComponent implements OnInit {
     this.filtered = this.data;
     this.sort(this.tableConfig.order.defaultColumn);
     this.maxPages=this.data.length/this.tableConfig.pagination.itemPerPage;
+    this.iterableMaxPages = new Array(Math.floor(this.maxPages)+1).fill(this.maxPages).map((x,i)=>i);
+  }
+
+  convertPageNumber(text:string):string{
+    return (parseInt(text)+1).toString();
+  }
+
+  setIndex(index:number){
+    this.selectedIndex=index+1;
+    console.log(this.selectedIndex);
+  }
+
+  setPageButton(text:string):MyButtonConfig{
+    text=this.convertPageNumber(text);
+    this.standardButtonConfig = new MyButtonConfig('', text, 'mt-3 btn btn-outline-warning');
+    return this.standardButtonConfig;
+  }
+
+  setPage(page:string, index:number){
+    this.page=parseInt(page);
+    this.selectedIndex=index+1;
   }
 
   getEvent(data: any, action: MyTableActionsEnum) {

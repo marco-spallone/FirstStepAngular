@@ -35,8 +35,15 @@
       <select class="form-select col-sm-3 col-md-3" [(ngModel)]="tableConfig.pagination.itemPerPage">
         <option *ngFor="let i of tableConfig.pagination.itemPerPageOptions">{{i}}</option>
       </select>
-      <button class="mt-3 btn btn-outline-warning" type="button" (click)="prev()"><</button>
-      <button class="mt-3 btn btn-outline-warning" type="button" (click)="next()">></button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto mt-2 btn-group col-md-10 col-sm-10">
+      <my-button [buttonConfig]="prevButtonConfig" (click)="prev()"></my-button>
+      <my-button *ngFor="let p of iterableMaxPages | slice:maxPages-5:maxPages+5, let i = index" [buttonConfig]="setPageButton(p)" (click)="setPage(p+1, i)" [class.active]="selectedIndex===i"></my-button>
+      <my-button [buttonConfig]="nextButtonConfig" (click)="next()"></my-button>
     </div>
   </div>
 </div>
