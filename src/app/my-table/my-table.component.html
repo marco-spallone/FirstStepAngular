@@ -15,7 +15,7 @@
         </option>
       </select>
       <input #searchValue type="text" class="form-control" id="search" name="search" placeholder="Cerca..."
-      (keyup)="applyFilter(searchFor.value, searchValue.value)"/>
+             (keyup)="applyFilter(searchFor.value, searchValue.value)"/>
       <table class="table table-striped table-bordered">
         <thead>
         <th *ngFor="let header of tableConfig.headers" (click)="sort(header.key)">{{header.label}}</th>
@@ -25,14 +25,18 @@
           *ngFor="let d of filtered | sort:order:column | pagination:tableConfig.pagination.itemPerPage:page; let rowId = index"
           [attr.id]="rowId">
           <td *ngFor="let n of tableConfig.headers">{{d[n.key]}}</td>
-          <td><my-button *ngIf="tableConfig.actions.includes(enum.EDIT)" [buttonConfig]="editButtonConfig"
-                         (click)="getEvent(d,enum.EDIT)"></my-button></td>
-          <td><my-button *ngIf="tableConfig.actions.includes(enum.DELETE)" [buttonConfig]="deleteButtonConfig "
-                     (click)="getEvent(d, enum.DELETE)"></my-button></td>
+          <td>
+            <my-button *ngIf="tableConfig.actions.includes(enum.EDIT)" [buttonConfig]="editButtonConfig"
+                       (click)="getEvent(d,enum.EDIT)"></my-button>
+          </td>
+          <td>
+            <my-button *ngIf="tableConfig.actions.includes(enum.DELETE)" [buttonConfig]="deleteButtonConfig "
+                       (click)="getEvent(d, enum.DELETE)"></my-button>
+          </td>
         </tr>
         </tbody>
       </table>
-      <select class="form-select col-sm-3 col-md-3" [(ngModel)]="tableConfig.pagination.itemPerPage">
+      <select class="form-select col-sm-3 col-md-3" [(ngModel)]="tableConfig.pagination.itemPerPage" (ngModelChange)="onItemPerPageChange()">
         <option *ngFor="let i of tableConfig.pagination.itemPerPageOptions">{{i}}</option>
       </select>
     </div>
@@ -40,9 +44,10 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="mx-auto mt-2 btn-group col-md-10 col-sm-10">
+    <div class="mx-auto justify-content-center mt-2 btn-group col-md-10 col-sm-10">
       <my-button [buttonConfig]="prevButtonConfig" (click)="prev()"></my-button>
-      <my-button *ngFor="let p of iterableMaxPages | slice:maxPages-5:maxPages+5, let i = index" [buttonConfig]="setPageButton(p)" (click)="setPage(p+1, i)" [class.active]="selectedIndex===i"></my-button>
+      <my-button *ngFor="let p of iterableMaxPages | slice:page-5:page+5"
+                 [buttonConfig]="setPageButton(p)" (click)="setPage(p)"></my-button>
       <my-button [buttonConfig]="nextButtonConfig" (click)="next()"></my-button>
     </div>
   </div>

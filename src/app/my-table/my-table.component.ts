@@ -26,35 +26,36 @@ export class MyTableComponent implements OnInit {
   enum = MyTableActionsEnum;
   maxPages!:number;
   iterableMaxPages!:Array<any>;
-  selectedIndex:number=1;
 
 
   ngOnInit() {
     this.order = this.tableConfig.order.orderType;
     this.filtered = this.data;
     this.sort(this.tableConfig.order.defaultColumn);
+    this.onItemPerPageChange()
+  }
+
+  onItemPerPageChange(){
     this.maxPages=this.data.length/this.tableConfig.pagination.itemPerPage;
-    this.iterableMaxPages = new Array(Math.floor(this.maxPages)+1).fill(this.maxPages).map((x,i)=>i);
+    if(this.maxPages%1===0){
+      this.iterableMaxPages = new Array(Math.floor(this.maxPages)).fill(this.maxPages).map((x,i)=>i);
+    } else {
+      this.iterableMaxPages = new Array(Math.floor(this.maxPages)+1).fill(this.maxPages).map((x,i)=>i);
+    }
+    this.page=1;
   }
 
-  convertPageNumber(text:string):string{
-    return (parseInt(text)+1).toString();
-  }
-
-  setIndex(index:number){
-    this.selectedIndex=index+1;
-    console.log(this.selectedIndex);
-  }
-
-  setPageButton(text:string):MyButtonConfig{
-    text=this.convertPageNumber(text);
-    this.standardButtonConfig = new MyButtonConfig('', text, 'mt-3 btn btn-outline-warning');
+  setPageButton(page:number):MyButtonConfig{
+    if(this.page-1===page){
+      this.standardButtonConfig = new MyButtonConfig('', (page+1).toString(), 'active mt-3 btn btn-outline-warning');
+    } else {
+      this.standardButtonConfig = new MyButtonConfig('', (page+1).toString(), 'mt-3 btn btn-outline-warning');
+    }
     return this.standardButtonConfig;
   }
 
-  setPage(page:string, index:number){
-    this.page=parseInt(page);
-    this.selectedIndex=index+1;
+  setPage(page:number){
+    this.page=page+1;
   }
 
   getEvent(data: any, action: MyTableActionsEnum) {
@@ -63,6 +64,7 @@ export class MyTableComponent implements OnInit {
 
   sort(column: string) {
     this.column = column;
+    this.page=1;
     if (this.order === 'desc') {
       this.order = 'asc';
     } else {
